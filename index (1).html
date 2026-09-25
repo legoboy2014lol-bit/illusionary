@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Illusionary Premium — Rivals</title>
+  <meta name="description" content="Illusionary Premium — clean, sharp, powerful Rivals script. Aimbot, rage, skins, visuals." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #050506;
+      --bg2: #0c0c0f;
+      --card: #121216;
+      --line: rgba(255,255,255,.08);
+      --text: #f2f2f4;
+      --muted: #8b8b96;
+      --accent: #c8c8d2;
+      --ok: #3dd68c;
+      --danger: #ff5c5c;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Inter, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: min(1100px, calc(100% - 40px)); margin: 0 auto; }
+
+    /* nav */
+    nav {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(5,5,6,.72);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 12px;
+      font-weight: 600; letter-spacing: .2em; text-transform: uppercase; font-size: 13px;
+    }
+    .brand-mark {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff, #9a9aaa 55%, #3a3a44);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.15);
+    }
+    .nav-links { display: flex; gap: 22px; align-items: center; font-size: 13px; color: var(--muted); }
+    .nav-links a:hover { color: var(--text); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      height: 40px; padding: 0 18px;
+      border-radius: 0; border: 1px solid var(--line);
+      background: #1a1a1f; color: var(--text);
+      font-size: 13px; font-weight: 600; cursor: pointer;
+      transition: .15s ease;
+    }
+    .btn:hover { background: #24242b; border-color: rgba(255,255,255,.18); }
+    .btn-primary {
+      background: linear-gradient(180deg, #ececf0, #bdbdc6);
+      color: #0a0a0c; border-color: transparent;
+    }
+    .btn-primary:hover { filter: brightness(1.05); }
+
+    /* hero */
+    .hero {
+      padding: 88px 0 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute; inset: -20% -10% auto;
+      height: 480px;
+      background:
+        radial-gradient(600px 280px at 20% 40%, rgba(255,255,255,.07), transparent 60%),
+        radial-gradient(500px 240px at 80% 20%, rgba(160,160,180,.08), transparent 55%);
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center;
+      position: relative;
+    }
+    .eyebrow {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 12px; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 14px;
+    }
+    h1 {
+      font-size: clamp(36px, 5vw, 56px);
+      line-height: 1.05; font-weight: 700; letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    .lead { color: var(--muted); font-size: 16px; max-width: 46ch; margin-bottom: 28px; }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 28px; }
+    .meta {
+      display: flex; flex-wrap: wrap; gap: 18px;
+      font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--muted);
+    }
+    .meta b { color: var(--text); font-weight: 500; }
+
+    .panel {
+      background: linear-gradient(180deg, #16161c, var(--card));
+      border: 1px solid var(--line);
+      padding: 14px;
+      box-shadow: 0 30px 80px rgba(0,0,0,.45);
+    }
+    .panel video, .panel img {
+      width: 100%; display: block; background: #000;
+      aspect-ratio: 16 / 9; object-fit: cover;
+    }
+    .panel-caption {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 10px; font-size: 12px; color: var(--muted);
+      font-family: "JetBrains Mono", monospace;
+    }
+
+    /* sections */
+    section { padding: 72px 0; border-top: 1px solid var(--line); }
+    .sec-title {
+      font-size: 28px; letter-spacing: -0.02em; margin-bottom: 10px;
+    }
+    .sec-sub { color: var(--muted); margin-bottom: 32px; max-width: 54ch; }
+
+    .features {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+    }
+    .feat {
+      background: var(--bg2); border: 1px solid var(--line);
+      padding: 20px; min-height: 140px;
+    }
+    .feat h3 {
+      font-size: 14px; letter-spacing: .08em; text-transform: uppercase;
+      margin-bottom: 8px; font-weight: 600;
+    }
+    .feat p { color: var(--muted); font-size: 14px; }
+
+    .split {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start;
+    }
+    .list { list-style: none; display: grid; gap: 10px; }
+    .list li {
+      display: flex; gap: 10px; align-items: flex-start;
+      padding: 12px 14px; background: var(--bg2); border: 1px solid var(--line);
+      font-size: 14px;
+    }
+    .dot {
+      width: 8px; height: 8px; margin-top: 6px; flex: 0 0 auto;
+      background: var(--accent);
+    }
+
+    .pricing {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+    }
+    .plan {
+      background: var(--bg2); border: 1px solid var(--line); padding: 24px;
+      display: flex; flex-direction: column; gap: 14px;
+      transform-style: preserve-3d;
+      transition: transform .12s ease-out, box-shadow .12s ease-out, border-color .12s ease;
+      will-change: transform;
+    }
+    .plan:hover {
+      border-color: rgba(255,255,255,.2);
+      box-shadow: 0 24px 50px rgba(0,0,0,.45);
+    }
+    .tilt-wrap {
+      perspective: 900px;
+      transform-style: preserve-3d;
+    }
+    .panel.tilt, .feat.tilt {
+      transform-style: preserve-3d;
+      transition: transform .12s ease-out, box-shadow .12s ease-out;
+      will-change: transform;
+    }
+    .feat {
+      transition: transform .12s ease-out, box-shadow .12s ease-out, border-color .12s ease;
+    }
+    .feat:hover { border-color: rgba(255,255,255,.16); }
+    .plan.featured {
+      border-color: rgba(255,255,255,.22);
+      background: linear-gradient(180deg, #18181e, #101014);
+    }
+    .plan h3 { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+    .price { font-size: 36px; font-weight: 700; letter-spacing: -0.03em; }
+    .price span { font-size: 14px; color: var(--muted); font-weight: 500; }
+    .plan ul { list-style: none; display: grid; gap: 8px; color: var(--muted); font-size: 14px; flex: 1; }
+    .plan ul li::before { content: "✓ "; color: var(--ok); }
+
+    .cta-band {
+      padding: 48px 28px; border: 1px solid var(--line);
+      background:
+        radial-gradient(700px 200px at 50% 0%, rgba(255,255,255,.06), transparent 60%),
+        var(--bg2);
+      text-align: center;
+    }
+    .cta-band h2 { font-size: 28px; margin-bottom: 10px; letter-spacing: -0.02em; }
+    .cta-band p { color: var(--muted); margin-bottom: 20px; }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 0 40px;
+      color: var(--muted); font-size: 12px;
+      display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    }
+    footer a:hover { color: var(--text); }
+
+    @media (max-width: 900px) {
+      .hero-grid, .split, .features, .pricing { grid-template-columns: 1fr; }
+      .nav-links .hide-sm { display: none; }
+      .hero { padding-top: 56px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Illusionary
+      </a>
+      <div class="nav-links">
+        <a class="hide-sm" href="#features">Features</a>
+        <a class="hide-sm" href="#skins">Skins</a>
+        <a class="hide-sm" href="#get">Get key</a>
+        <a class="btn btn-primary" href="#get">Get Premium</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Rivals · Premium script</p>
+        <h1>Sharp. Clean.<br />Built to dominate.</h1>
+        <p class="lead">
+          Illusionary Premium is a modern Rivals client — aimbot that actually locks,
+          rage tools, skin changer, visuals, and a hub UI that doesn’t look like 2019.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#get">Get a key</a>
+          <a class="btn" href="https://discord.gg/YqukS5ymv" target="_blank" rel="noopener">Discord</a>
+        </div>
+        <div class="meta">
+          <span><b>Hub</b> sharp · modular</span>
+          <span><b>Skins</b> full library</span>
+          <span><b>Support</b> Discord</span>
+        </div>
+      </div>
+      <div class="panel tilt">
+        <video autoplay muted loop playsinline poster="">
+          <source src="promo.mp4" type="video/mp4" />
+        </video>
+        <div class="panel-caption">
+          <span>ILLUSIONARY PREMIUM</span>
+          <span>PROMO</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="features">
+    <div class="wrap">
+      <h2 class="sec-title">Everything that matters</h2>
+      <p class="sec-sub">Combat, movement, visuals, and cosmetics in one hub. No clutter. No soft corners.</p>
+      <div class="features">
+        <article class="feat tilt">
+          <h3>Aimbot</h3>
+          <p>FOV lock, prediction, sticky target, lock strength, crosshair priority — tuned to feel snappy, not floaty.</p>
+        </article>
+        <article class="feat tilt">
+          <h3>Rage</h3>
+          <p>Orbit modes, autoshoot, multi-target, camera tools, hit notifications with custom sounds.</p>
+        </article>
+        <article class="feat tilt">
+          <h3>Knife</h3>
+          <p>Hitbox expand with optional backstab-only cone so melee stays intentional.</p>
+        </article>
+        <article class="feat tilt">
+          <h3>Visuals</h3>
+          <p>ESP, center tracers, FOV ring on barrel, crosshair, skies, snow, atmosphere, dark mode.</p>
+        </article>
+        <article class="feat tilt">
+          <h3>Skins</h3>
+          <p>Full weapon skin + wrap library with dropdowns and local save — equip what you want.</p>
+        </article>
+        <article class="feat tilt">
+          <h3>Configs</h3>
+          <p>Save, load, autoload on match. Dark mode and world settings persist with your profile.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="skins">
+    <div class="wrap split">
+      <div>
+        <h2 class="sec-title">Looks as good as it plays</h2>
+        <p class="sec-sub">Hub UI inspired by premium clients — sharp panels, fill-box toggles, thin sliders, skin dropdowns.</p>
+        <ul class="list">
+          <li><span class="dot"></span>Illusionary Hub Premium title + Rivals tag</li>
+          <li><span class="dot"></span>Module switches that fill when enabled</li>
+          <li><span class="dot"></span>Sky presets + world snow / atmosphere</li>
+          <li><span class="dot"></span>White hit notifs, bottom-center</li>
+        </ul>
+      </div>
+      <div class="panel tilt">
+        <img src="hub_preview.png" alt="Illusionary Hub Premium UI" style="width:100%;display:block;aspect-ratio:16/10;object-fit:cover;object-position:top;background:#0a0a0c;border:1px solid var(--line);" />
+        <div class="panel-caption">
+          <span>HUB · CHARACTER TAB</span>
+          <span>SHARP UI</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="get">
+    <div class="wrap">
+      <h2 class="sec-title">Get access</h2>
+      <p class="sec-sub">Keys unlock Illusionary Premium. Wire your generator / Discord when you’re ready — layout is ready for prices.</p>
+      <div class="pricing">
+        <div class="plan tilt">
+          <h3>Day</h3>
+          <div class="price">$1 <span>/ 24h</span></div>
+          <ul>
+            <li>Full script access</li>
+            <li>Skins + visuals</li>
+            <li>Discord support</li>
+          </ul>
+          <a class="btn" href="https://discord.gg/YqukS5ymv" target="_blank" rel="noopener">Buy on Discord</a>
+        </div>
+        <div class="plan tilt">
+          <h3>Week</h3>
+          <div class="price">$3 <span>/ 7 days</span></div>
+          <ul>
+            <li>Everything in Day</li>
+            <li>Priority updates</li>
+            <li>Config help</li>
+          </ul>
+          <a class="btn" href="https://discord.gg/YqukS5ymv" target="_blank" rel="noopener">Buy on Discord</a>
+        </div>
+        <div class="plan featured tilt">
+          <h3>Lifetime</h3>
+          <div class="price">$10 <span>/ once</span></div>
+          <ul>
+            <li>Everything unlocked forever</li>
+            <li>All future updates</li>
+            <li>Best value</li>
+            <li>Early features</li>
+          </ul>
+          <a class="btn btn-primary" href="https://discord.gg/YqukS5ymv" target="_blank" rel="noopener">Buy on Discord</a>
+        </div>
+      </div>
+
+      <div class="cta-band" style="margin-top:28px;">
+        <h2>Ready when you are</h2>
+        <p>Key generator page + Discord already exist — link them here whenever you want.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <a class="btn btn-primary" href="../illusionary_key_generator.html">Open key generator</a>
+          <a class="btn" href="https://discord.gg/YqukS5ymv" target="_blank" rel="noopener">discord.gg/YqukS5ymv</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="wrap">
+    <span>© Illusionary Premium · Rivals</span>
+    <span>
+      <a href="https://discord.gg/YqukS5ymv" target="_blank" rel="noopener">Discord</a>
+      ·
+      <a href="#top">Top</a>
+    </span>
+  </footer>
+
+<script>
+(function () {
+  const max = 10; // degrees
+  const cards = document.querySelectorAll('.tilt');
+  cards.forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width;
+      const y = (e.clientY - r.top) / r.height;
+      const rx = (0.5 - y) * max;
+      const ry = (x - 0.5) * max;
+      card.style.transform = 'perspective(900px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg) scale3d(1.02,1.02,1.02)';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)';
+    });
+  });
+})();
+</script>
+</body>
+</html>
